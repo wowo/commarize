@@ -1,2 +1,2 @@
 # commarize
-Simple web app that turns items from new lines into comma separated string, especially useful in SQL WHERE IN queries
+A simple tool which turns items from new lines into a comma-separated string. Especially useful when transforming Excel or CSV data into SQL WHERE IN query parameters for ad-hoc analysis or debugging.
