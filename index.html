@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Commarize</title>
+        <script type="text/javascript">
+            function commarize() {
+                var input = document.getElementById('input').value;
+                var quote = document.getElementById('quote').checked;
+                var output = input.replace(/\n/g, ', ');
+                output = output.replace(/, ?$/, '');
+                if (quote) {
+                    output = output.replace(/, /g, '\', \'');
+                    output = output.replace(/^/, '\'');
+                    output = output.replace(/$/, '\'');
+                }
+                document.getElementById('output').value = output ;
+                document.getElementById('count').innerHTML = (input.match(/\n/g) || []).length + 1;
+            }
+        </script>
+        <style  type="text/css">
+            textarea {
+              width: 50%;
+              height: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Commarize</h1>
+        <label for="input">Multi-line input (<span id="count">0</span> lines)</label><br/>
+        <textarea id="input" onkeyup="commarize()"></textarea>
+        <br />
+        <label for="output">Comma separated output</label> <label for="quote">(<input type="checkbox" id="quote" onclick="commarize()"/> Quote)</label><br/>
+        <textarea id="output" readonly></textarea>
+    </body>
+</html>
