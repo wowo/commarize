@@ -3,16 +3,21 @@
         <title>Commarize</title>
         <script type="text/javascript">
             function commarize() {
-                var input = document.getElementById('input').value;
-                var quote = document.getElementById('quote').checked;
-                var output = input.replace(/\n/g, ', ');
+                const input = document.getElementById('input').value;
+                const quote = document.getElementById('quote').checked;
+                const trim = document.getElementById('trim').checked;
+                let output = input;
+                if (trim) {
+                    output = output.replace(/\s+\n/g, '\n');
+                }
+                output = output.replace(/\n/g, ', ');
                 output = output.replace(/, ?$/, '');
                 if (quote) {
                     output = output.replace(/, /g, '\', \'');
                     output = output.replace(/^/, '\'');
                     output = output.replace(/$/, '\'');
                 }
-                document.getElementById('output').value = output ;
+                document.getElementById('output').value = output;
                 document.getElementById('count').innerHTML = (input.match(/\n/g) || []).length + 1;
             }
         </script>
@@ -25,10 +30,15 @@
     </head>
     <body>
         <h1>Commarize</h1>
+        <p>A simple tool which turns items from new lines into a comma-separated string, especially useful when transforming Excel or CSV data into SQL WHERE IN query parameters for ad-hoc analysis or debugging.</p>
+
         <label for="input">Multi-line input (<span id="count">0</span> lines)</label><br/>
         <textarea id="input" onkeyup="commarize()"></textarea>
         <br />
-        <label for="output">Comma separated output</label> <label for="quote">(<input type="checkbox" id="quote" onclick="commarize()"/> Quote)</label><br/>
+        <label for="output">Comma separated output</label> (<label for="quote"><input type="checkbox" id="quote" onclick="commarize()"/> Quote</label><label for="trim"><input type="checkbox" id="trim" onclick="commarize()"/> Trim</label>)<br/>
         <textarea id="output" readonly></textarea>
+        <footer>
+            Powered by: <a href="https://blog.sznapka.pl">sznapka.pl</a>
+        </footer>
     </body>
 </html>
