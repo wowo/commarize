@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Commarize</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <script type="text/javascript">
             function commarize() {
                 const input = document.getElementById('input').value;
@@ -20,25 +21,57 @@
                 document.getElementById('output').value = output;
                 document.getElementById('count').innerHTML = (input.match(/\n/g) || []).length + 1;
             }
+            function clipboard() {
+                const copyText = document.getElementById('output');
+
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+                document.execCommand('copy');
+            }
         </script>
+
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         <style  type="text/css">
             textarea {
-              width: 50%;
-              height: 300px;
+                height: 200px !important;
             }
         </style>
     </head>
-    <body>
-        <h1>Commarize</h1>
-        <p>A simple tool which turns items from new lines into a comma-separated string, especially useful when transforming Excel or CSV data into SQL WHERE IN query parameters for ad-hoc analysis or debugging.</p>
+    <body onload="commarize()">
+        <div class="w-auto m-4">
+            <h1 class="text-3xl border-l-2 border-blue-600 pl-4 text-blue-900">Commarize</h1>
+            <p class="my-4 text-gray-600 leading-normal">A simple tool which turns items from new lines into a comma-separated string, especially useful when transforming Excel or CSV data into SQL WHERE IN query parameters for ad-hoc analysis or debugging.</p>
 
-        <label for="input">Multi-line input (<span id="count">0</span> lines)</label><br/>
-        <textarea id="input" onkeyup="commarize()"></textarea>
-        <br />
-        <label for="output">Comma separated output</label> (<label for="quote"><input type="checkbox" id="quote" onclick="commarize()"/> Quote</label><label for="trim"><input type="checkbox" id="trim" onclick="commarize()"/> Trim</label>)<br/>
-        <textarea id="output" readonly></textarea>
-        <footer>
-            Powered by: <a href="https://blog.sznapka.pl">sznapka.pl</a>
-        </footer>
+            <div class="flex">
+                <div class="w-1/2">
+                    <p class="text-gray-700 text-sm font-bold mb-2">
+                        <label for="input">Multi-line input (<span id="count">0</span> lines)</label>
+                    </p>
+                </div>
+                <div class="w-1/2 pl-4">
+                    <p class="text-gray-700 text-sm font-bold mb-2">
+                        <label for="output">Output</label>
+                        <span class="block">
+                            <label for="quote"><input type="checkbox" class="mr-1 leading-tight" id="quote" onclick="commarize()"/> Quote</label>
+                            <label for="trim"><input type="checkbox" class="mr-1 leading-tight" id="trim" onclick="commarize()"/> Trim</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-1/2 pr-4">
+                    <textarea class="w-full h-auto shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input" onkeyup="commarize()"></textarea>
+                </div>
+                <div class="w-1/2 pl-4">
+                    <textarea class="w-full h-auto shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="output" readonly></textarea>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button class="shadow bg-blue-500 hover:bg-blue-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" onclick="commarize()" type="button">Commarize!</button>
+                <a href="#" class="float-right text-blue-800 text-xs" onclick="clipboard()">Copy to clipboard</a>
+            <footer class="mt-8 text-center text-gray-800 text-s">
+                &copy; 2020 <a href="https://blog.sznapka.pl" class="underline text-blue-500">sznapka.pl</a>
+            </footer>
+        </div>
     </body>
 </html>
