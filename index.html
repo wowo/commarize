@@ -21,9 +21,13 @@
                 const input = document.getElementById('input').value;
                 const quote = document.getElementById('quote').checked;
                 const trim = document.getElementById('trim').checked;
+                const whitespaces = document.getElementById('whitespaces').checked;
                 let output = input;
                 if (trim) {
                     output = output.replace(/\s+\n/g, '\n');
+                }
+                if (whitespaces) {
+                    output = output.replace(/ /g, '');
                 }
                 output = output.replace(/\n/g, ', ');
                 output = output.replace(/, ?$/, '');
@@ -68,6 +72,7 @@
                         <span class="block">
                             <label for="quote"><input type="checkbox" class="mr-1 leading-tight" id="quote" onclick="commarize()"/> Quote</label>
                             <label for="trim"><input type="checkbox" class="mr-1 leading-tight" id="trim" onclick="commarize()"/> Trim</label>
+                            <label for="whitespaces"><input type="checkbox" class="mr-1 leading-tight" id="whitespaces" onclick="commarize()"/> Clear whitespaces</label>
                         </span>
                     </p>
                 </div>
